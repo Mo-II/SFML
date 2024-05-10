@@ -1,23 +1,12 @@
 
-import torch.nn as nn
 import torch.optim as optim
 import torch
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
+from neuralNetwork import NeuralNet
+import torch.nn as nn
 
-class NeuralNet(nn.Module):
-    def __init__(self, input_size, hidden_size, output_size):
-        super(NeuralNet, self).__init__()
-        self.fc1 = nn.Linear(input_size, hidden_size)
-        self.relu = nn.ReLU()                        
-        self.fc2 = nn.Linear(hidden_size, output_size)
-
-    def forward(self, x):
-        out = self.fc1(x)
-        out = self.relu(out)
-        out = self.fc2(out)
-        return out
 
 def datasplitter(file_path):
     data = pd.read_csv(file_path)
@@ -80,6 +69,7 @@ if __name__ == "__main__":
         
         # Get predictions
         _, predicted = torch.max(outputs, 1)        
-        # # Calculate accuracy
-        correct = (predicted == y_test).sum().item()
-        print(correct)
+        # Calculate accuracy
+        correct = (predicted == torch.tensor(y_test.values, dtype=torch.long)).sum().item()
+        accuracy = correct / len(y_test)
+        print(f'Accuracy: {accuracy}')
