@@ -31,14 +31,15 @@ if __name__ == "__main__":
     X_train, X_test, y_train, y_test = datasplitter(file)
     
     input_size = X_train.shape[1]
-    hidden_size = 64
+    hidden_size1 = 64
+    hidden_size2 = 128
     num_classes = len(y_train.unique())
-    model = NeuralNet(input_size, hidden_size, num_classes)
+    model = NeuralNet(input_size, hidden_size1, hidden_size2, num_classes)
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-    num_epochs = 100
+    num_epochs = 500
     for epoch in range(num_epochs):
         # Set model to training mode
         model.train()
