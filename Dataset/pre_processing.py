@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
+import os
 
 
 def pre_processing(path):
@@ -23,5 +24,13 @@ def pre_processing(path):
 
     
     # Split the dataset into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.3, random_state=42)
-    return X_train, X_test, y_train, y_test
+    X_train, X_rest, y_train, y_rest = train_test_split(X, Y, test_size=0.2, random_state=42)
+    X_val, X_test, y_val, y_test = train_test_split(X_rest, y_rest, test_size=0.5, random_state=42)
+
+    return X_train, X_val, X_test, y_train, y_val, y_test
+
+
+# Example
+root = os.getcwd()
+file = root + "\\Dataset\\ObesityDataSet.csv"
+X_train, X_val, X_test, y_train, y_val, y_test = pre_processing(file)

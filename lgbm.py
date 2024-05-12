@@ -4,9 +4,9 @@ from sklearn.metrics import classification_report
 import os
 
 root = os.getcwd()
-file = root + "\\Dataset\\ObesityDataSet.csv"
+file = root + "\\Dataset\\Dataset.csv"
 
-X_train, X_test, y_train, y_test = pre_processing(file)
+X_train, X_Val, X_test, y_train, y_val, y_test = pre_processing(file)
 
 print (X_train.shape)
 
