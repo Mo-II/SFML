@@ -31,6 +31,6 @@ def pre_processing(path):
 
 
 # Example
-root = os.getcwd()
-file = root + "\\Dataset\\ObesityDataSet.csv"
-X_train, X_val, X_test, y_train, y_val, y_test = pre_processing(file)
+#root = os.getcwd()
+#file = root + "\\Dataset.csv"
+#X_train, X_val, X_test, y_train, y_val, y_test = pre_processing(file)
