@@ -3,11 +3,7 @@ from sklearn.model_selection import train_test_split
 import os
 
 
-def pre_processing(path):
-
-    data = pd.read_csv(path)
-
-    print(data.shape)
+def make_categorical(data):
     # Convert categorical variables to numerical variables
     data['Gender'] = pd.Categorical(data['Gender']).codes
     data['family_history_with_overweight'] = pd.Categorical(data['family_history_with_overweight']).codes
@@ -17,6 +13,16 @@ def pre_processing(path):
     data['SCC'] = pd.Categorical(data['SCC']).codes
     data['CALC'] = pd.Categorical(data['CALC']).codes
     data['MTRANS'] = pd.Categorical(data['MTRANS']).codes
+
+    return data
+
+def pre_processing(path):
+
+    data = pd.read_csv(path)
+
+    #print(data.shape)
+    data = make_categorical(data)
+    
 
     # Split the dataset into input features and the target variable
     X = data.drop('NObeyesdad', axis=1)
