@@ -13,6 +13,7 @@ def make_categorical(data):
     data['SCC'] = pd.Categorical(data['SCC']).codes
     data['CALC'] = pd.Categorical(data['CALC']).codes
     data['MTRANS'] = pd.Categorical(data['MTRANS']).codes
+    data['NObeyesdad'] = pd.Categorical(data['NObeyesdad']).codes
 
     return data
 
