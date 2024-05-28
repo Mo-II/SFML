@@ -1,7 +1,7 @@
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import GridSearchCV
 from sklearn.ensemble import RandomForestRegressor
-from random_forest import pre_processing
+from Dataset.pre_processing import *
 import pandas as pd
 
 def grid_search_rf():
@@ -24,7 +24,7 @@ def grid_search_rf():
     regressor = RandomForestRegressor()
 
     # Perform grid search with cross-validation
-    grid_search = GridSearchCV(estimator=regressor, param_grid=param_grid, cv=3, verbose=2, scoring='r2')
+    grid_search = GridSearchCV(estimator=regressor, param_grid=param_grid, cv=3, verbose=2, scoring='neg_mean_squared_error')
 
     # Fit the grid search to the training data
     grid_search.fit(X_train, y_train)
