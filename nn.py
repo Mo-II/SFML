@@ -1,10 +1,8 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.neural_network import MLPClassifier
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.inspection import permutation_importance
+from sklearn.metrics import accuracy_score
 
 def datasplitter(file_path):
     data = pd.read_csv(file_path)
@@ -47,23 +45,21 @@ if __name__ == "__main__":
     file = "./Dataset/DataSet.csv"
     X_train, X_test, y_train, y_test = datasplitter(file)
 
-    # Initialize and train the neural network with early stopping
-    clf = MLPClassifier(hidden_layer_sizes=(100, 50), max_iter=1000, early_stopping=True, validation_fraction=0.1, n_iter_no_change=10, random_state=42)
-    history = clf.fit(X_train, y_train)
+   # Standardize features
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
+    
+    # Define the model
+    input_size = X_train.shape[1]
+    hidden_layer_sizes = (64, 128)
+    model = MLPClassifier(hidden_layer_sizes=hidden_layer_sizes, max_iter=500, learning_rate_init=0.001, random_state=42)
 
-    # Evaluate the model on validation set
-    val_loss = clf.loss_
-    print(f"Validation Loss: {val_loss}")
-
-    # Evaluate the model on test set
-    test_accuracy = clf.score(X_test, y_test)
-    print(f"Test Accuracy: {test_accuracy}")
-
-    # Plot the training loss
-    plot_loss(history)
-
-    # Calculate permutation importances
-    perm_importances = permutation_importance(clf, X_test, y_test, n_repeats=10, random_state=42)
-
-    # Plot permutation importances
-    plot_permutation_importances(perm_importances, X_train.columns)
+    # Train the model
+    model.fit(X_train, y_train)
+    
+    # Evaluate the model
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    
+    print(f'Accuracy: {accuracy:.4f}')

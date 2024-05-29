@@ -3,14 +3,19 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import GridSearchCV
 import pandas as pd
 from sklearn.metrics import f1_score, make_scorer
-
-
+from sklearn.preprocessing import StandardScaler
+from nn import datasplitter
 
 def grid_search_nn(max_iter):
 
+
     file = "./Dataset/Dataset.csv"
 
-    X_train, X_test, X_val, y_train, y_val, y_test = pre_processing(file)
+    X_train, X_test, y_train, y_test = datasplitter(file)
+
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train)
+    X_test = scaler.transform(X_test)
 
     param_grid = {
         'hidden_layer_sizes': [(50,), (100,),(150,),(100,50),(150,75),(50,25)],  # Tuple specifying the number of neurons in each hidden layer
