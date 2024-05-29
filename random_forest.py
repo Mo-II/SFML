@@ -24,7 +24,7 @@ def evaluate_regressor(regressor, X, y):
 
 def plot_learning_curves(estimator, X_train, y_train, title):
     train_sizes, train_scores, test_scores = learning_curve(estimator, X_train, y_train, cv=5, 
-                                                            scoring='neg_mean_squared_error', 
+                                                            scoring='mean_squared_error', 
                                                             train_sizes=np.linspace(0.1, 1.0, 10))
     train_scores_mean = -np.mean(train_scores, axis=1)
     test_scores_mean = -np.mean(test_scores, axis=1)

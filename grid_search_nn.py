@@ -48,4 +48,4 @@ def grid_search_nn(max_iter):
     results_df.to_csv('grid_search/grid_search_results_nn.csv', index=False)
 
 
-grid_search_nn(1000)
+grid_search_nn(100)

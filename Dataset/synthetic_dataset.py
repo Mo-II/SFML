@@ -73,4 +73,4 @@ def create_synthetic_dataset(n_samples):
     synthetic_df.to_csv('synthetic_dataset.csv', index=False)
 
 
-create_synthetic_dataset(1000)
+create_synthetic_dataset(100000)

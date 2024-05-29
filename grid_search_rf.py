@@ -13,18 +13,18 @@ def grid_search_rf():
 
     # Define the parameter grid
     param_grid = {
-    'n_estimators': [50, 100, 200],
-    'max_depth': [None, 10, 20, 30],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4],
-    'bootstrap': [True, False],
-    'max_features': ['auto', 'sqrt', 'log2']
+    'n_estimators': [50, 100],#, 200],
+    'max_depth': [None, 10]#, 20, 30]
+    #'min_samples_split': [2, 5, 10],
+    #'min_samples_leaf': [1, 2, 4],
+    #'bootstrap': [True, False],
+    #'max_features': ['auto', 'sqrt', 'log2']
     }
 
     regressor = RandomForestRegressor()
 
     # Perform grid search with cross-validation
-    grid_search = GridSearchCV(estimator=regressor, param_grid=param_grid, cv=3, verbose=2, scoring='neg_mean_squared_error')
+    grid_search = GridSearchCV(estimator=regressor, param_grid=param_grid, cv=3, verbose=2, scoring='mean_squared_error')
 
     # Fit the grid search to the training data
     grid_search.fit(X_train, y_train)
