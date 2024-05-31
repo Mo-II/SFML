@@ -18,7 +18,7 @@ def make_categorical(data):
     return data
 
 def pre_processing_classification(path):
-
+    print(path)
     data = pd.read_csv(path)
 
     #print(data.shape)

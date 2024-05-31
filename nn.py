@@ -4,6 +4,13 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 
+hidden_layer_sizes = (64, 128)
+activation = 'tanh'
+batch_size = 32
+learning_rate = 'adaptive'
+learning_rate_init = 0.01
+solver = 'adam'
+
 def datasplitter(file_path):
     data = pd.read_csv(file_path)
 
@@ -42,7 +49,7 @@ def plot_permutation_importances(perm_importances, features):
     plt.show()
 
 if __name__ == "__main__":
-    file = "./Dataset/DataSet.csv"
+    file = "./Dataset/ObesityDataSet.csv"
     X_train, X_test, y_train, y_test = datasplitter(file)
 
    # Standardize features
@@ -53,7 +60,14 @@ if __name__ == "__main__":
     # Define the model
     input_size = X_train.shape[1]
     hidden_layer_sizes = (64, 128)
-    model = MLPClassifier(hidden_layer_sizes=hidden_layer_sizes, max_iter=500, learning_rate_init=0.001, random_state=42)
+    model = MLPClassifier(hidden_layer_sizes=hidden_layer_sizes, 
+                      max_iter=500, 
+                      learning_rate=learning_rate, 
+                      learning_rate_init=learning_rate_init, 
+                      activation=activation, 
+                      solver=solver, 
+                      batch_size=batch_size, 
+                      random_state=42)
 
     # Train the model
     model.fit(X_train, y_train)
