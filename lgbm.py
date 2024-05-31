@@ -1,12 +1,12 @@
-from Dataset.pre_processing import pre_processing
+from Dataset.pre_processing import pre_processing_classification
 import lightgbm as lgb
 from sklearn.metrics import classification_report
 import os
 
 root = os.getcwd()
-file = root + "\\Dataset\\Dataset.csv"
+file = "./Dataset/Dataset.csv"
 
-X_train, X_Val, X_test, y_train, y_val, y_test = pre_processing(file)
+X_train, X_Val, X_test, y_train, y_val, y_test = pre_processing_classification(file)
 
 print (X_train.shape)
 

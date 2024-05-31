@@ -17,7 +17,7 @@ def make_categorical(data):
 
     return data
 
-def pre_processing(path):
+def pre_processing_classification(path):
 
     data = pd.read_csv(path)
 
@@ -27,6 +27,7 @@ def pre_processing(path):
 
     # Split the dataset into input features and the target variable
     X = data.drop('NObeyesdad', axis=1)
+    X = X.drop('Weight', axis=1)
     Y = data['NObeyesdad']
 
     
@@ -41,3 +42,19 @@ def pre_processing(path):
 #root = os.getcwd()
 #file = root + "\\Dataset.csv"
 #X_train, X_val, X_test, y_train, y_val, y_test = pre_processing(file)
+
+def pre_processing_regression(path):
+
+    data = pd.read_csv(path)
+
+    data = make_categorical(data)
+
+    X = data.drop('NObeyesdad', axis=1)
+    X = X.drop('Weight', axis=1)
+
+    Y = data['Weight']
+
+    X_train, X_rest, y_train, y_rest = train_test_split(X, Y, test_size=0.2, random_state=42)
+    X_val, X_test, y_val, y_test = train_test_split(X_rest, y_rest, test_size=0.5, random_state=42)
+
+    return X_train, X_val, X_test, y_train, y_val, y_test   

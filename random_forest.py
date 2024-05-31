@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import learning_curve
 from sklearn.metrics import mean_squared_error, r2_score
-from Dataset.pre_processing import pre_processing
+from Dataset.pre_processing import pre_processing_regression
 from Dataset.pre_processing import make_categorical
 
 
@@ -40,8 +40,8 @@ def plot_learning_curves(estimator, X_train, y_train, title):
     plt.show()
 
 if __name__ == "__main__":
-    file = "./Dataset/Dataset.csv"
-    X_train, X_val, X_test, y_train, y_val, y_test = pre_processing(file)
+    file = "./Dataset/ObesityDataSet.csv"
+    X_train, X_val, X_test, y_train, y_val, y_test = pre_processing_regression(file)
 
     #n_estimators: is het aantal decision trees in de forest
     #max_depth: staat voor de maximum diepte van elke boom in de forest
@@ -52,9 +52,22 @@ if __name__ == "__main__":
     #random_state: Set een random seed voor reproducibility
     #cirterion: specifieert de functie voor het meten van de kwaliteit van een split: mean squared error of mean absolute error
     #warm_start: Staat toe om vorige solutions/fits te hergebruiken
-    regressor = RandomForestRegressor(n_estimators=100, max_depth=15, min_samples_split=10,
-                                       min_samples_leaf=1, max_features=15, bootstrap=True,
-                                       random_state=42)
+    bootstrap = False
+    max_depth = 30
+    max_features = 'sqrt'
+    min_samples_leaf = 1
+    min_samples_split = 8
+    n_estimators = 90
+    random_state = 42
+
+# Creating the model
+    regressor = RandomForestRegressor(n_estimators=n_estimators, 
+                                    max_depth=max_depth, 
+                                    min_samples_split=min_samples_split,
+                                    min_samples_leaf=min_samples_leaf, 
+                                    max_features=max_features, 
+                                    bootstrap=bootstrap,
+                                    random_state=random_state)
 
     # Fit the model
     regressor.fit(X_train, y_train)

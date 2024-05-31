@@ -8,7 +8,7 @@ def grid_search_rf():
 
     file = "./Dataset/DataSet.csv"
 
-    X_train, X_test, X_val, y_train, y_val, y_test = pre_processing(file)
+    X_train, X_test, X_val, y_train, y_val, y_test = pre_processing_regression(file)
 
 
     # Define the parameter grid

@@ -33,7 +33,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Users/moshabot/Desktop/Mo/SFML/SFML"
+set -gx VIRTUAL_ENV "/Users/moshabot/Desktop/Mo/Statistical/SFML/SFML"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH
