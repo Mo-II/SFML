@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-df = pd.read_csv("Dataset/Dataset.csv")
+df = pd.read_csv("Dataset/ObesityDataSet.csv")
 
 noise_levels = [0.05, 0.1, 0.15, 0.2]
 

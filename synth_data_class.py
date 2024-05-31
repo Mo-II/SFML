@@ -1,7 +1,7 @@
 import random
 import pandas as pd
 
-trainingsset = pd.read_csv("Dataset/Dataset.csv")
+trainingsset = pd.read_csv("Dataset/ObesityDataSet.csv")
 
 unique_values = trainingsset['NObeyesdad'].unique()
 print(unique_values)
