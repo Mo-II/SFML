@@ -9,16 +9,15 @@ from sklearn.metrics import mean_squared_error, r2_score
 from Dataset.pre_processing import pre_processing_regression
 from Dataset.pre_processing import make_categorical
 
-
 def evaluate_regressor(regressor, X, y):
     # Make predictions
     y_pred = regressor.predict(X)
 
     # Calculate Mean Squared Error
-    mse = mean_squared_error(y, y_pred) #meet de mean-squared-error tussen de voorspelde waarden en de werkelijke waarden
+    mse = mean_squared_error(y, y_pred)  # Measures the mean-squared-error between the predicted values and the actual values
 
     # Calculate R-squared
-    r2 = r2_score(y, y_pred) #Hoe goed het model de variatie in gewicht kan verklaren => hogere r2_score, beter in het voorspellen van het gewicht
+    r2 = r2_score(y, y_pred)  # How well the model can explain the variance in weight => higher r2_score, better at predicting weight
 
     return mse, r2
 
@@ -42,16 +41,20 @@ def plot_learning_curves(estimator, X_train, y_train, title):
 if __name__ == "__main__":
     file = "./Dataset/ObesityDataSet.csv"
     X_train, X_val, X_test, y_train, y_val, y_test = pre_processing_regression(file)
+    # In pre_processing_regression, the NObeyesdad and Weight columns are removed, and the weight column is used as the target value
+    # The NObeyesdad is removed because it has a high correlation with Weight
 
-    #n_estimators: is het aantal decision trees in de forest
-    #max_depth: staat voor de maximum diepte van elke boom in de forest
-    #min_samples_split: is het minimum aantal samples nodig om een interne node te splitsen => kan helpen overfitten te voorkomen
-    #min_samples_leaf: minimum aantal samples nodig bij een leaf node, kan ook helpen om overfitting te voorkomen
-    #max_features: Staat voor het maximum aantal features die in acht worden genomen wanneer een node wordt gesplitst
-    #bootstrap: Controleert of bootstrap samples worden gebruikt bij het bouwen van de trees, wanneer False, wordt elke tree getrained op de hele dataset
-    #random_state: Set een random seed voor reproducibility
-    #cirterion: specifieert de functie voor het meten van de kwaliteit van een split: mean squared error of mean absolute error
-    #warm_start: Staat toe om vorige solutions/fits te hergebruiken
+    # n_estimators: the number of decision trees in the forest
+    # max_depth: the maximum depth of each tree in the forest
+    # min_samples_split: the minimum number of samples required to split an internal node => can help prevent overfitting
+    # min_samples_leaf: minimum number of samples required at a leaf node, can also help prevent overfitting
+    # max_features: the maximum number of features considered when splitting a node
+    # bootstrap: whether bootstrap samples are used when building trees; if False, the whole dataset is used to build each tree
+    # random_state: sets a random seed for reproducibility
+    # criterion: specifies the function to measure the quality of a split: mean squared error or mean absolute error
+    # warm_start: allows previous solutions/fits to be reused
+
+    # These parameters are the result of the grid search we conducted on the supercomputer.
     bootstrap = False
     max_depth = 30
     max_features = 'sqrt'
@@ -97,3 +100,6 @@ if __name__ == "__main__":
     plt.ylabel('Feature')
     plt.title('Feature Importances')
     plt.show()
+
+    # The graph that is shown visualizes the feature importance of the attributes on the target value 'Weight'. It is intuitive that 'Height' has a high feature importance because height is directly correlated to the weight of a person, which is an obvious relationship that the model confirms.
+    # This is why we decided to highlight the 2nd most important feature, which is 'Family history with overweight', which indicates that genetics and environmental factors play a significant role in whether a person is obese/has CVD risk or not, which we did not expect to be the case.
