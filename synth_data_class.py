@@ -8,7 +8,7 @@ print(unique_values)
 
 labels = trainingsset['NObeyesdad'].unique()
 
-mislabel_percentages = [0.05, 0.1, 0.15, 0.2]
+mislabel_percentages = [0.01, 0.025, 0.05, 0.075, 0.1, 0.15, 0.2, 0.25, 0.3, 0.5]
 
 for mislabel_percentage in mislabel_percentages:
     mislabeled_df = trainingsset.copy()
